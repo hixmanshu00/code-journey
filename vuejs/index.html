@@ -1,0 +1,36 @@
+<!-- USING VUE WITHOUT THE BUILD TOOLS -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VUE BASICS</title>
+    <!-- Importing vue.js using a cdn link -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script> 
+    <!-- Importing bootstrap for easy designing using cdn link-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+    <div id="content" class="container">
+        <!-- We have mounted our application in this div -->
+        <!-- Everything inside it will be a `template` & vue will use this template to generate content on browser -->
+        <h1>{{ pageTitle }}</h1> <!-- using a property from 'vue instance' -->
+        <p>{{content}}</p>
+
+    </div>
+
+    <script>
+        // Creating vue application using .createApp method
+        Vue.createApp({
+            // data is state of application like it is there in reactJS, it is known as `vue instance`
+            data() {  
+                return {
+                    pageTitle: 'Hello, World',
+                    content: 'Welcome to the vue.js application'
+                };
+            }
+        }).mount('#content')   // mounting our application in a HTML div container with id 'content'
+    </script>
+    
+</body>
+</html>

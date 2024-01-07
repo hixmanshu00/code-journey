@@ -5,8 +5,9 @@
 
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li v-for="(page, index) in pages" class="nav-item" :key="index" :class="{ active: activePage == index }">
-                    <a @click.prevent="navLinkClick(index)" class="nav-link" aria-current="page"
-                        :href="page.link.url">{{ page.link.text }}</a>
+                    <!-- using separate component for nav link -->
+                    <navbar-link :page="page" :isActive="activePage === index"
+                        @click.prevent="navLinkClick(index)"></navbar-link>
                 </li>
             </ul>
 
@@ -22,7 +23,12 @@
 </template>
 
 <script>
+import NavbarLink from './NavbarLink.vue';
 export default {
+    components: { NavbarLink },
+    created() {
+        this.getThemeSetting();
+    },
     props: ['pages', 'activePage', 'navLinkClick'],
     data() {
         return {
@@ -33,13 +39,26 @@ export default {
     methods: {
         changeTheme() {
             let theme = "light";
-
             if (this.theme == "light") {
                 theme = "dark";
             }
-
             this.theme = theme;
+            this.storeThemeSetting();
         },
+
+        // method to store theme value to the localstorage
+        storeThemeSetting() {
+            localStorage.setItem('theme', this.theme);
+        },
+
+        // method to get the value from the localstorage
+        getThemeSetting() {
+            let theme = localStorage.getItem('theme')
+            if (theme) {
+                this.theme = theme
+            }
+        }
     },
 }
 </script>
+
